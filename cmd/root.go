@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 	"os"
+	"readme-creator/colors"
 	"strings"
 )
 
@@ -21,7 +22,7 @@ var rootCmd = &cobra.Command{
 			text, _ := reader.ReadString('\n')
 			if strings.Contains(text, "\n") {
 				text = strings.Replace(text, "\n", "", -1)
-				fmt.Println("You entered: ", text)
+				fmt.Printf("You entered: %v%v%v\n", colors.Blue, text, colors.Reset)
 			}
 		}
 	},
@@ -32,6 +33,7 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil{
 		log.Fatalf("Fatal error: %s", err)
 	}
+
 }
 
 //func init() {
