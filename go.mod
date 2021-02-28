@@ -1,4 +1,4 @@
-module readme-creator
+module weaver
 
 go 1.15
 

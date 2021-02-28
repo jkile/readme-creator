@@ -1,41 +1,23 @@
 package cmd
 
 import (
-	"bufio"
 	"fmt"
-	"github.com/spf13/cobra"
-	"log"
-	"os"
-	"readme-creator/colors"
-	"strings"
+	"weaver/readme"
 )
-
-var rootCmd = &cobra.Command{
-	Use: "weaver",
-	Short: "Weaver makes your readme like a basket",
-	Long: `A fast readme file generator to speed up the process of 
-			documenting projects and having to manually markup files`,
-	Run: func(cmd *cobra.Command, args []string){
-		fmt.Println("Please enter something: ")
-		reader := bufio.NewReader(os.Stdin)
-		for {
-			text, _ := reader.ReadString('\n')
-			if strings.Contains(text, "\n") {
-				text = strings.Replace(text, "\n", "", -1)
-				fmt.Printf("You entered: %v%v%v\n", colors.Blue, text, colors.Reset)
-			}
-		}
-	},
-}
 
 
 func Execute() {
-	if err := rootCmd.Execute(); err != nil{
-		log.Fatalf("Fatal error: %s", err)
-	}
-
+	rm := readme.Readme{}
+	rm.SetProjectName(prompt("Enter project name: "))
+	rm.SetImageUrl(prompt("Enter project image path: "))
+	rm.SetDescription(prompt("Enter project description: "))
+	rm.SetUsage(prompt("Enter project usage: "))
+	rm.SetContributing(prompt("Enter how to contribute: "))
+	fmt.Printf("\nProject Name: %v\nImage Path: %v\nDescription: %v\nUsage: %v\nContributing: %v",
+		rm.ProjectName(),
+		rm.ImageUrl(),
+		rm.Description(),
+		rm.Usage(),
+		rm.Contributing(),
+	)
 }
-
-//func init() {
-//	cobra.on
-//}

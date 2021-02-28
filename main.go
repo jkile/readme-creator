@@ -1,7 +1,7 @@
 package main
 
 import (
-	"readme-creator/cmd"
+	"weaver/cmd"
 )
 
 func main() {
