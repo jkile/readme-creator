@@ -3,11 +3,13 @@ package cmd
 import (
 	"fmt"
 	"weaver/readme"
+	"os"
 )
 
 
 func Execute() {
-	rm := readme.Readme{}
+	rm := &readme.Readme{}
+	fmt.Printf("%T", rm)
 	rm.SetProjectName(prompt("Enter project name: "))
 	rm.SetImageUrl(prompt("Enter project image path: "))
 	rm.SetDescription(prompt("Enter project description: "))
@@ -20,4 +22,18 @@ func Execute() {
 		rm.Usage(),
 		rm.Contributing(),
 	)
+	rmFile, err := os.Create("README.md")
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+
+	defer rmFile.Close()
+
+	//write project name
+	// rmFile.WriteString("# " + strings.Title(rm.ProjectName()))
+	// if err != nil {
+	// 	fmt.Println("Error: ", err)
+	// }
+	readme.WriteProjectName(rm, rmFile)
+
 }
